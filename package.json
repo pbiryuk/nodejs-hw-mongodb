@@ -1,0 +1,34 @@
+{
+  "name": "nodejs-hw-mongodb",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbiryuk/nodejs-hw-mongodb.git"
+  },
+  "keywords": [],
+  "author": "Pavlo <biryuk.p.biryuk@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbiryuk/nodejs-hw-mongodb/issues"
+  },
+  "homepage": "https://github.com/pbiryuk/nodejs-hw-mongodb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "pino-http": "^11.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.37.0",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
+  },
+  "description": ""
+}
