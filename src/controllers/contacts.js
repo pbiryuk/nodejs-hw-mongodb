@@ -8,11 +8,31 @@ import {
 } from '../services/contacts.js';
 
 export const getAllContacts = async (req, res) => {
-  const contacts = await getAllContactsService();
+  const {
+    page = 1,
+    perPage = 10,
+    sortBy = 'name',
+    sortOrder = 'asc',
+    type,
+    isFavourite,
+  } = req.query;
+
+  const filter = {};
+  if (type) filter.contactType = type;
+  if (isFavourite !== undefined) filter.isFavourite = isFavourite === 'true';
+
+  const result = await getAllContactsService(
+    Number(page),
+    Number(perPage),
+    sortBy,
+    sortOrder,
+    filter,
+  );
+
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
-    data: contacts,
+    data: result,
   });
 };
 
