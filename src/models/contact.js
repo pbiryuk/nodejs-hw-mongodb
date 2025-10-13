@@ -15,8 +15,10 @@ const contactSchema = new mongoose.Schema(
   {
     timestamps: true,
     collection: 'contacts',
+    versionKey: false,
   },
 );
 
 const Contact = mongoose.model('Contact', contactSchema);
+
 export default Contact;
