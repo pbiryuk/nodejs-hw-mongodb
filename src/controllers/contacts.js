@@ -17,7 +17,7 @@ export const getAllContacts = async (req, res) => {
     isFavourite,
   } = req.query;
 
-  const filter = {};
+  const filter = { userId: req.user._id };
   if (type) filter.contactType = type;
   if (isFavourite !== undefined) filter.isFavourite = isFavourite === 'true';
 
@@ -38,7 +38,7 @@ export const getAllContacts = async (req, res) => {
 
 export const getContactById = async (req, res) => {
   const { contactId } = req.params;
-  const contact = await getContactByIdService(contactId);
+  const contact = await getContactByIdService(contactId, req.user._id);
   if (!contact) throw createHttpError(404, 'Contact not found');
 
   res.json({
@@ -49,7 +49,10 @@ export const getContactById = async (req, res) => {
 };
 
 export const createContact = async (req, res) => {
-  const newContact = await createNewContact(req.body);
+  const newContact = await createNewContact({
+    ...req.body,
+    userId: req.user._id,
+  });
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -59,7 +62,7 @@ export const createContact = async (req, res) => {
 
 export const updateContact = async (req, res) => {
   const { contactId } = req.params;
-  const updated = await updateContactById(contactId, req.body);
+  const updated = await updateContactById(contactId, req.body, req.user._id);
   res.json({
     status: 200,
     message: 'Successfully patched a contact!',
@@ -69,6 +72,6 @@ export const updateContact = async (req, res) => {
 
 export const deleteContact = async (req, res) => {
   const { contactId } = req.params;
-  await deleteContactById(contactId);
+  await deleteContactById(contactId, req.user._id);
   res.status(204).send();
 };
