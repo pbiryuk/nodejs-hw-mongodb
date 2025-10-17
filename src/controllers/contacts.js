@@ -1,4 +1,7 @@
 import createHttpError from 'http-errors';
+import fs from 'fs/promises';
+import multer from 'multer';
+import { uploadImage } from '../services/cloudinary.js';
 import {
   getAllContactsService,
   getContactByIdService,
@@ -6,6 +9,8 @@ import {
   updateContactById,
   deleteContactById,
 } from '../services/contacts.js';
+
+const upload = multer({ dest: 'tmp/' });
 
 export const getAllContacts = async (req, res) => {
   const {
@@ -48,27 +53,46 @@ export const getContactById = async (req, res) => {
   });
 };
 
-export const createContact = async (req, res) => {
-  const newContact = await createNewContact({
-    ...req.body,
-    userId: req.user._id,
-  });
-  res.status(201).json({
-    status: 201,
-    message: 'Successfully created a contact!',
-    data: newContact,
-  });
-};
+export const createContactWithPhoto = [
+  upload.single('photo'),
+  async (req, res) => {
+    if (req.file) {
+      const photoUrl = await uploadImage(req.file.path);
+      await fs.unlink(req.file.path);
+      req.body.photo = photoUrl;
+    }
+    const newContact = await createNewContact({
+      ...req.body,
+      userId: req.user._id,
+    });
+    res.status(201).json({
+      status: 201,
+      message: 'Successfully created a contact!',
+      data: newContact,
+    });
+  },
+];
 
-export const updateContact = async (req, res) => {
-  const { contactId } = req.params;
-  const updated = await updateContactById(contactId, req.body, req.user._id);
-  res.json({
-    status: 200,
-    message: 'Successfully patched a contact!',
-    data: updated,
-  });
-};
+export const updateContactWithPhoto = [
+  upload.single('photo'),
+  async (req, res) => {
+    if (req.file) {
+      const photoUrl = await uploadImage(req.file.path);
+      await fs.unlink(req.file.path);
+      req.body.photo = photoUrl;
+    }
+    const updated = await updateContactById(
+      req.params.contactId,
+      req.body,
+      req.user._id,
+    );
+    res.json({
+      status: 200,
+      message: 'Successfully patched a contact!',
+      data: updated,
+    });
+  },
+];
 
 export const deleteContact = async (req, res) => {
   const { contactId } = req.params;
