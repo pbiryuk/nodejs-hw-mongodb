@@ -1,11 +1,8 @@
 import dotenv from 'dotenv';
-import app from './server.js';
-import { initMongoConnection } from './db/initMongoConnection.js';
-
 dotenv.config();
 
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
-console.log('JWT_REFRESH_SECRET:', process.env.JWT_REFRESH_SECRET);
+import app from './server.js';
+import { initMongoConnection } from './db/initMongoConnection.js';
 
 const startApp = async () => {
   await initMongoConnection();

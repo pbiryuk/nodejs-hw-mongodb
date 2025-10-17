@@ -6,13 +6,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
   },
-  {
-    timestamps: true, // автоматично створює createdAt і updatedAt
-    versionKey: false,
-    collection: 'users',
-  },
+  { timestamps: true, versionKey: false, collection: 'users' },
 );
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+export default mongoose.model('User', userSchema);

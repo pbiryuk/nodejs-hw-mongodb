@@ -12,13 +12,7 @@ const sessionSchema = new mongoose.Schema(
     accessTokenValidUntil: { type: Date, required: true },
     refreshTokenValidUntil: { type: Date, required: true },
   },
-  {
-    timestamps: true, // дата створення та оновлення сесії
-    versionKey: false,
-    collection: 'sessions',
-  },
+  { timestamps: true, versionKey: false, collection: 'sessions' },
 );
 
-const Session = mongoose.model('Session', sessionSchema);
-
-export default Session;
+export default mongoose.model('Session', sessionSchema);

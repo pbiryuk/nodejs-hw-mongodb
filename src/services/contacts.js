@@ -33,20 +33,16 @@ export const getAllContactsService = async (
   };
 };
 
-export const getContactByIdService = async (contactId, userId) =>
+export const getContactByIdService = (contactId, userId) =>
   Contact.findOne({ _id: contactId, userId });
 
-export const createNewContact = async (contactData) =>
-  Contact.create(contactData);
+export const createNewContact = (contactData) => Contact.create(contactData);
 
 export const updateContactById = async (contactId, data, userId) => {
   const contact = await Contact.findOneAndUpdate(
     { _id: contactId, userId },
     data,
-    {
-      new: true,
-      runValidators: true,
-    },
+    { new: true, runValidators: true },
   );
 
   if (!contact) throw createHttpError(404, 'Contact not found');
