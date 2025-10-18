@@ -11,8 +11,8 @@ const APP_DOMAIN = process.env.APP_DOMAIN;
 // Налаштування SMTP (Brevo)
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT), // ставимо 2525 у змінних оточення на Render
-  secure: false, // для портів 587/2525 зазвичай false
+  port: Number(process.env.SMTP_PORT),
+  secure: false, // для порту 587 зазвичай false
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
@@ -26,7 +26,6 @@ export const sendResetEmailService = async (email) => {
   const token = jwt.sign({ email: user.email }, JWT_SECRET, {
     expiresIn: '5m',
   });
-
   const resetLink = `${APP_DOMAIN}/reset-password?token=${token}`;
 
   try {
