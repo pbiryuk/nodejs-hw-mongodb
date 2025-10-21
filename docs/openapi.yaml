@@ -9,7 +9,7 @@ info:
     API для керування контактами користувачів з авторизацією, фото та типами контактів.
 
 servers:
-  - url: https://nodejs-hw-mongodb.onrender.com
+  - url: https://nodejs-hw-mongodb-nojn.onrender.com
 
 tags:
   - name: Contacts
