@@ -19,3 +19,10 @@ responses:
           $ref: '../../../components/schemas/Contact.yaml'
   '404':
     description: Контакт не знайдено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string

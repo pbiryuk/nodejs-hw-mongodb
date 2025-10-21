@@ -1,11 +1,13 @@
 summary: Створити новий контакт
 operationId: createContact
+tags:
+  - Contacts
 security:
   - bearerAuth: []
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data:
       schema:
         $ref: '../../components/schemas/ContactInput.yaml'
 responses:

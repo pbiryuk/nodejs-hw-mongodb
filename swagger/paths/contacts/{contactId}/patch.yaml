@@ -1,4 +1,4 @@
-summary: Update a contact
+summary: Оновити контакт
 operationId: updateContactById
 tags:
   - Contacts
@@ -13,18 +13,18 @@ security:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data:
       schema:
         $ref: '../../../components/schemas/ContactInput.yaml'
 responses:
   '200':
-    description: Contact updated successfully
+    description: Контакт успішно оновлено
     content:
       application/json:
         schema:
-          $ref: "../../../components/schemas/Contact.yaml"
+          $ref: '../../../components/schemas/Contact.yaml'
   '400':
-    description: Bad request
+    description: Некоректний запит
     content:
       application/json:
         schema:
@@ -33,7 +33,7 @@ responses:
             message:
               type: string
   '404':
-    description: Contact not found
+    description: Контакт не знайдено
     content:
       application/json:
         schema:

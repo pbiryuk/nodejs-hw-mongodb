@@ -14,15 +14,21 @@
     "type": "git",
     "url": "git+https://github.com/pbiryuk/nodejs-hw-mongodb.git"
   },
-  "keywords": [],
-  "author": "Pavlo <biryuk.p.biryuk@gmail.com>",
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "api",
+    "contacts",
+    "swagger"
+  ],
+  "author": "Pavlo Biryuk <biryuk.p.biryuk@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pbiryuk/nodejs-hw-mongodb/issues"
   },
   "homepage": "https://github.com/pbiryuk/nodejs-hw-mongodb#readme",
+  "description": "Contacts API з документацією Swagger/Redocly для керування контактами користувачів",
   "dependencies": {
-    "@redocly/cli": "^1.34.5",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
@@ -36,13 +42,14 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.9",
     "pino-http": "^11.0.0",
+    "redoc": "^2.5.2",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@redocly/cli": "^1.34.5",
     "eslint": "^9.37.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2"
-  },
-  "description": ""
+  }
 }
