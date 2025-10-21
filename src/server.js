@@ -8,12 +8,13 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(pino());
 app.use(express.json());
@@ -24,10 +25,19 @@ app.use('/contacts', contactsRouter);
 app.use('/auth', authRouter);
 app.use('/auth', passwordResetRouter); // маршрути для reset password
 
-// Swagger UI
+// Swagger UI з JSON
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const swaggerPath = path.join(__dirname, '../docs/openapi.yaml');
-const swaggerDoc = YAML.load(swaggerPath);
+const swaggerJsonPath = path.join(__dirname, '../docs/swagger.json');
+
+// Перевірка, чи файл існує
+let swaggerDoc = {};
+if (fs.existsSync(swaggerJsonPath)) {
+  swaggerDoc = JSON.parse(fs.readFileSync(swaggerJsonPath, 'utf8'));
+} else {
+  console.warn(
+    '⚠️ Swagger JSON не знайдено. Виконай "npm run build-docs" перед запуском.',
+  );
+}
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
