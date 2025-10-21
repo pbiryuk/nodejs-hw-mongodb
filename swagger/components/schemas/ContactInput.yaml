@@ -1,14 +1,26 @@
 type: object
-required: [name, phoneNumber, contactType]
+required:
+  - name
+  - phoneNumber
+  - contactType
 properties:
   name:
     type: string
+    example: John Doe
   phoneNumber:
     type: string
+    example: '123456789'
   email:
     type: string
+    example: john@example.com
   isFavourite:
     type: boolean
+    example: false
   contactType:
     type: string
     enum: [personal, work, home]
+    example: personal
+  photo:
+    type: string
+    format: binary
+    description: Фото контакту

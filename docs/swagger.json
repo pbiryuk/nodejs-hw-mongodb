@@ -480,16 +480,20 @@
         ],
         "properties": {
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "John Doe"
           },
           "phoneNumber": {
-            "type": "string"
+            "type": "string",
+            "example": "123456789"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "example": "john@example.com"
           },
           "isFavourite": {
-            "type": "boolean"
+            "type": "boolean",
+            "example": false
           },
           "contactType": {
             "type": "string",
@@ -497,7 +501,13 @@
               "personal",
               "work",
               "home"
-            ]
+            ],
+            "example": "personal"
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary",
+            "description": "Фото контакту"
           }
         }
       }
