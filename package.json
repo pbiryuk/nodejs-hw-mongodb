@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r dotenv/config src/index.js",
-    "dev": "nodemon -r dotenv/config src/index.js"
+    "dev": "nodemon -r dotenv/config src/index.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/pbiryuk/nodejs-hw-mongodb#readme",
   "dependencies": {
+    "@redocly/cli": "^1.34.5",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
@@ -31,7 +35,9 @@
     "mongoose": "^8.19.1",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.9",
-    "pino-http": "^11.0.0"
+    "pino-http": "^11.0.0",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^9.37.0",

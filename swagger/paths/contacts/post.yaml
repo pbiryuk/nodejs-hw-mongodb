@@ -1,0 +1,35 @@
+summary: Створити новий контакт
+operationId: createContact
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/ContactInput.yaml'
+responses:
+  '201':
+    description: Контакт створено
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Contact.yaml'
+  '400':
+    description: Некоректний запит
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+  '409':
+    description: Контакт вже існує
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string

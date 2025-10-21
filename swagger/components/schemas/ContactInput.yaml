@@ -1,0 +1,14 @@
+type: object
+required: [name, phoneNumber, contactType]
+properties:
+  name:
+    type: string
+  phoneNumber:
+    type: string
+  email:
+    type: string
+  isFavourite:
+    type: boolean
+  contactType:
+    type: string
+    enum: [personal, work, home]
