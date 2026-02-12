@@ -1,0 +1,24 @@
+summary: Видалити контакт
+operationId: deleteContact
+tags:
+  - Contacts
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    schema:
+      type: string
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: Контакт успішно видалено
+  '404':
+    description: Контакт не знайдено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string

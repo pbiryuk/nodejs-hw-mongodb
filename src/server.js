@@ -1,27 +1,48 @@
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
-import {
-  getContactsController,
-  getContactByIdController,
-} from './controllers/contacts.js';
+import contactsRouter from './routers/contacts.js';
+import authRouter from './routers/auth.js';
+import passwordResetRouter from './routers/passwordReset.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export const setupServer = () => {
-  const app = express();
+const app = express();
 
-  app.use(cors());
-  app.use(pino());
-  app.use(express.json());
+// Middleware
+app.use(cors());
+app.use(pino());
+app.use(express.json());
+app.use(cookieParser());
 
-  app.get('/contacts', getContactsController);
-  app.get('/contacts/:contactId', getContactByIdController);
+// Роутинг
+app.use('/contacts', contactsRouter);
+app.use('/auth', authRouter);
+app.use('/auth', passwordResetRouter); // маршрути для reset password
 
-  app.use((req, res) => {
-    res.status(404).json({ message: 'Not found' });
-  });
+// Swagger UI з JSON
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const swaggerJsonPath = path.join(__dirname, '../docs/swagger.json');
 
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`✅ Server is running on port ${PORT}`);
-  });
-};
+// Перевірка, чи файл існує
+let swaggerDoc = {};
+if (fs.existsSync(swaggerJsonPath)) {
+  swaggerDoc = JSON.parse(fs.readFileSync(swaggerJsonPath, 'utf8'));
+} else {
+  console.warn(
+    '⚠️ Swagger JSON не знайдено. Виконай "npm run build-docs" перед запуском.',
+  );
+}
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
+// Хендлери помилок
+app.use(notFoundHandler);
+app.use(errorHandler);
+
+export default app;

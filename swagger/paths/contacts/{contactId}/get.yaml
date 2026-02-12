@@ -1,0 +1,28 @@
+summary: Отримати контакт
+operationId: getContactById
+tags:
+  - Contacts
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    schema:
+      type: string
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Контакт знайдено
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/Contact.yaml'
+  '404':
+    description: Контакт не знайдено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string

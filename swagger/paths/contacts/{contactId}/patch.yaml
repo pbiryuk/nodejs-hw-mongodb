@@ -1,0 +1,43 @@
+summary: Оновити контакт
+operationId: updateContactById
+tags:
+  - Contacts
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    schema:
+      type: string
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        $ref: '../../../components/schemas/ContactInput.yaml'
+responses:
+  '200':
+    description: Контакт успішно оновлено
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/Contact.yaml'
+  '400':
+    description: Некоректний запит
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+  '404':
+    description: Контакт не знайдено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string

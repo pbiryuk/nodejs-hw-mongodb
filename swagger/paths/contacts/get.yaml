@@ -1,0 +1,91 @@
+summary: Отримати список контактів
+operationId: getContacts
+tags:
+  - Contacts
+security:
+  - bearerAuth: []
+parameters:
+  - name: page
+    in: query
+    schema:
+      type: integer
+      default: 1
+  - name: perPage
+    in: query
+    schema:
+      type: integer
+      default: 10
+  - name: sortBy
+    in: query
+    schema:
+      type: string
+      default: name
+  - name: sortOrder
+    in: query
+    schema:
+      type: string
+      enum: [asc, desc]
+      default: asc
+  - name: type
+    in: query
+    schema:
+      type: string
+      enum: [work, home, personal]
+  - name: isFavourite
+    in: query
+    schema:
+      type: boolean
+responses:
+  '200':
+    description: Список контактів отримано
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/Contact.yaml'
+            page:
+              type: integer
+            perPage:
+              type: integer
+            totalItems:
+              type: integer
+            totalPages:
+              type: integer
+            hasPreviousPage:
+              type: boolean
+            hasNextPage:
+              type: boolean
+        example:
+          data: []
+          page: 1
+          perPage: 10
+          totalItems: 0
+          totalPages: 1
+          hasPreviousPage: false
+          hasNextPage: false
+  '400':
+    description: Некоректний запит
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+        example:
+          message: 'Некоректний запит'
+  '404':
+    description: Контакти не знайдено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+        example:
+          message: 'Контакти не знайдено'

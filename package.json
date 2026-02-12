@@ -4,31 +4,52 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node -r dotenv/config src/index.js",
+    "dev": "nodemon -r dotenv/config src/index.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pbiryuk/nodejs-hw-mongodb.git"
   },
-  "keywords": [],
-  "author": "Pavlo <biryuk.p.biryuk@gmail.com>",
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "api",
+    "contacts",
+    "swagger"
+  ],
+  "author": "Pavlo Biryuk <biryuk.p.biryuk@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/pbiryuk/nodejs-hw-mongodb/issues"
   },
   "homepage": "https://github.com/pbiryuk/nodejs-hw-mongodb#readme",
+  "description": "Contacts API з документацією Swagger/Redocly для керування контактами користувачів",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "http-errors": "^2.0.0",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.1",
-    "pino-http": "^11.0.0"
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.9",
+    "pino-http": "^11.0.0",
+    "redoc": "^2.5.2",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "@redocly/cli": "^1.34.5",
     "eslint": "^9.37.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2"
-  },
-  "description": ""
+  }
 }

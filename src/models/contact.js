@@ -5,17 +5,20 @@ const contactSchema = new mongoose.Schema(
     name: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     email: { type: String },
+    photo: { type: String, default: null }, // ← додане поле для фото
     isFavourite: { type: Boolean, default: false },
     contactType: {
       type: String,
       enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
-  {
-    timestamps: true,
-    collection: 'contacts',
-  },
+  { timestamps: true, collection: 'contacts', versionKey: false },
 );
 
-export const Contact = mongoose.model('Contact', contactSchema);
+export default mongoose.model('Contact', contactSchema);
